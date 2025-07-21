@@ -1,0 +1,130 @@
+/* index-landing.css */
+body {
+    background-color: var(--light);
+    color: var(--dark);
+    padding: 1.5rem;
+    min-height: 100vh;
+    line-height: 1.5;
+    font-size: var(--font-base);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.app-logo {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary);
+}
+
+.landing-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.landing-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    color: var(--dark);
+    opacity: 0.8;
+}
+
+.landing-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.landing-btn {
+    padding: 0.75rem;
+    border-radius: var(--radius);
+    border: var(--border);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow);
+    width: 100%;
+}
+
+.landing-btn-primary {
+    background-color: var(--primary);
+    color: var(--dark);
+}
+
+.landing-btn-secondary {
+    background-color: var(--secondary);
+    color: var(--dark);
+}
+
+.landing-btn-small {
+    padding: 0.5rem 1rem;
+    font-size: var(--font-sm);
+    width: auto;
+    display: inline-block;
+}
+
+.dark-mode .landing-btn-secondary {
+    background-color: #333333;
+}
+
+.landing-btn:hover {
+    transform: translate(3px, 3px);
+    box-shadow: 2px 2px 0px rgba(107, 96, 84, 0.4);
+}
+
+.footer {
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-weight: 600;
+    font-size: var(--font-sm);
+    width: 100%;
+    max-width: 600px;
+}
+
+.footer p {
+    margin-bottom: 0.75rem;
+}
+
+.footer a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.dark-mode .footer {
+    background-color: #2A2A2A;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 1rem;
+    }
+
+    .landing-container {
+        max-width: 100%;
+    }
+
+    .landing-btn {
+        padding: 0.5rem;
+    }
+
+    .footer {
+        padding: 0.75rem;
+    }
+}

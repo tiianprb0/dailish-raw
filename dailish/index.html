@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/index-landing.css">
+</head>
+<body>
+    <div class="landing-container">
+        <div class="app-logo">✓</div>
+        <h1 class="landing-title">To-Do List</h1>
+        <p class="landing-subtitle">Get things done with style</p>
+        
+        <div class="landing-buttons" id="landing-buttons">
+            <button class="landing-btn landing-btn-primary" id="create-list-btn">Create New List</button>
+            <button class="landing-btn landing-btn-secondary" id="view-list-btn">View My List</button>
+        </div>
+        
+        <!-- Create Username Form -->
+        <div class="username-form" id="create-username-form">
+            <div class="form-group">
+                <label for="new-username" class="form-label">Choose a username</label>
+                <input type="text" id="new-username" class="form-input" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="new-pin" class="form-label">Set a PIN (Optional, 4 digits)</label>
+                <div style="position: relative;">
+                    <input type="password" id="new-pin" class="form-input" placeholder="Enter 4-digit PIN" maxlength="4" pattern="\d{4}">
+                    <button type="button" class="toggle-pin-visibility" data-target="new-pin" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="form-btn form-btn-secondary" id="cancel-username-btn">Cancel</button>
+                <button class="form-btn form-btn-primary" id="save-username-btn">Continue</button>
+            </div>
+        </div>
+        
+        <!-- View Username Form -->
+        <div class="username-form" id="view-username-form">
+            <div class="form-group">
+                <label for="existing-username" class="form-label">Enter your username</label>
+                <input type="text" id="existing-username" class="form-input" placeholder="Your username">
+            </div>
+            <div class="form-group" id="pin-group" style="display: none;">
+                <label for="existing-pin" class="form-label">Enter your PIN</label>
+                <div style="position: relative;">
+                    <input type="password" id="existing-pin" class="form-input" placeholder="Enter 4-digit PIN" maxlength="4">
+                    <button type="button" class="toggle-pin-visibility" data-target="existing-pin" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="form-btn form-btn-secondary" id="cancel-view-btn">Cancel</button>
+                <button class="form-btn form-btn-primary" id="load-tasks-btn">View Tasks</button>
+            </div>
+        </div>
+        
+        <!-- Delete Account Form -->
+        <div class="username-form" id="delete-account-form">
+            <div class="form-group">
+                <label for="delete-username" class="form-label">Enter your username to delete</label>
+                <input type="text" id="delete-username" class="form-input" placeholder="Your username">
+            </div>
+            <div class="form-group" id="delete-pin-group" style="display: none;">
+                <label for="delete-pin" class="form-label">Enter your PIN</label>
+                <div style="position: relative;">
+                    <input type="password" id="delete-pin" class="form-input" placeholder="Enter 4-digit PIN" maxlength="4">
+                    <button type="button" class="toggle-pin-visibility" data-target="delete-pin" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="form-btn form-btn-secondary" id="cancel-delete-btn">Cancel</button>
+                <button class="form-btn form-btn-primary" id="confirm-delete-btn">Confirm</button>
+            </div>
+        </div>
+        
+        <!-- Delete Confirmation Popup -->
+        <div class="delete-confirm-popup" id="delete-confirm-popup" style="display: none;">
+            <div class="delete-confirm-content">
+                <h2 class="delete-confirm-title">Confirm Account Deletion</h2>
+                <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+                <div id="recent-tasks" style="margin: 1rem 0;"></div>
+                <div class="form-actions">
+                    <button class="form-btn form-btn-secondary" id="cancel-confirm-delete-btn">Cancel</button>
+                    <button class="form-btn form-btn-primary" id="final-delete-btn">Delete Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>By signing up, you agree to our <a href="/privacy-policy">Privacy Policy</a> and <a href="/terms">Terms of Service</a>.</p>
+        <a href="#" class="delete-account-link" id="delete-account-btn" style="text-decoration: underline; color: var(--primary);">Delete Account</a>
+    </footer>
+
+    <script type="module" src="js/index-main.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'935a48fa19996746',t:'MTc0NTU0NjgyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+.username-form {
+    background-color: white;
+    padding: 1.5rem;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    display: none;
+    animation: fadeIn 0.3s ease;
+    margin-top: 1rem;
+}
+
+.dark-mode .username-form {
+    background-color: #2A2A2A;
+}
+
+.username-form.visible {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    text-align: left;
+    font-size: var(--font-sm);
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: var(--border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-family: inherit;
+    box-shadow: var(--shadow);
+    background-color: white;
+}
+
+.dark-mode .form-input {
+    background-color: #333333;
+    color: var(--dark);
+}
+
+.form-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.form-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border-radius: var(--radius);
+    border: var(--border);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.form-btn-primary {
+    background-color: var(--primary);
+    color: var(--dark);
+}
+
+.form-btn-secondary {
+    background-color: white;
+    color: var(--dark);
+}
+
+.dark-mode .form-btn-secondary {
+    background-color: #333333;
+}
+
+.form-btn:hover {
+    transform: translate(3px, 3px);
+    box-shadow: 2px 2px 0px rgba(107, 96, 84, 0.4);
+}
+
+.add-task {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background-color: white;
+    padding: 1.25rem;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    z-index: 1000;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    display: none;
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.add-task.visible {
+    display: block;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.dark-mode .add-task {
+    background-color: #2A2A2A;
+}
+
+.add-task-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.add-task-overlay.visible {
+    display: block;
+    opacity: 1;
+}
+
+.form-input.category-input {
+    padding-left: 2.5rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    border: var(--border);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--dark);
+}
+
+.btn-secondary {
+    background-color: var(--secondary);
+    color: var(--dark);
+}
+
+.btn:hover {
+    transform: translate(3px, 3px);
+    box-shadow: 2px 2px 0px rgba(107, 96, 84, 0.4);
+}
+
+.edit-task {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background-color: white;
+    padding: 1.25rem;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    z-index: 1000;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    display: none;
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.edit-task.visible {
+    display: block;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.dark-mode .edit-task {
+    background-color: #2A2A2A;
+}
+
+.edit-task-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.edit-task-overlay.visible {
+    display: block;
+    opacity: 1;
+}
+
+@media (max-width: 600px) {
+    .form-btn {
+        min-width: 100px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form-row {
+        flex-direction: row-reverse;
+        gap: 0.8rem;
+    }
+
+    .add-task {
+        top: 0;
+        left: 0;
+        transform: none;
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+        padding: 1.5rem;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    .add-task.visible {
+        transform: none;
+        opacity: 1;
+    }
+
+    .edit-task {
+        top: 0;
+        left: 0;
+        transform: none;
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+        padding: 1.5rem;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    .edit-task.visible {
+        transform: none;
+        opacity: 1;
+    }
+
+    .add-task-overlay {
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: none;
+    }
+
+    .edit-task-overlay {
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: none;
+    }
+}
+
+@media (min-width: 601px) {
+    body:has(.add-task.visible), body:has(.edit-task.visible) {
+        overflow: hidden;
+    }
+}

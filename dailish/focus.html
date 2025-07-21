@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Mode - Dailish</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --bg-light: #FFFFFF;
+            --bg-dark: #2A363B;
+            --text-light: #3D4A47;
+            --text-dark: #E8ECEB;
+            --sage-primary: #A8B5A2;
+            --sage-secondary: #DCE2D8;
+            --sage-accent: #829B8F;
+            --text-accent: #5E6F68;
+            --text-accent-dark: #C5D0CC;
+            --radius: 8px;
+            --spacing: 1rem;
+            --font-base: 0.95rem;
+            --font-sm: 0.85rem;
+            --font-xs: 0.75rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            background-image: radial-gradient(circle, rgba(94, 111, 104, 0.15) 1px, transparent 1px);
+            background-size: 12px 12px;
+            color: var(--text-light);
+            min-height: 100vh;
+            line-height: 1.5;
+            font-size: var(--font-base);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.5s ease-out, color 0.5s ease-out;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle, rgba(197, 208, 204, 0.15) 1px, transparent 1px);
+            color: var(--text-dark);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+            padding: var(--spacing);
+            background-color: transparent;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .user-avatar {
+            width: 28px;
+            height: 28px;
+            background-color: var(--sage-accent);
+            color: #F5F6F5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-sm);
+            font-weight: 500;
+        }
+
+        body.dark-mode .user-avatar {
+            background-color: var(--sage-primary);
+        }
+
+        #username-display {
+            font-size: var(--font-sm);
+            font-weight: 500;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .menu-btn, .exit-btn, .theme-toggle-btn {
+            background-color: var(--sage-secondary);
+            color: var(--text-light);
+            border: 1px solid var(--sage-accent);
+            padding: 0.5rem;
+            font-size: var(--font-sm);
+            cursor: pointer;
+            border-radius: var(--radius);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        body.dark-mode .menu-btn, body.dark-mode .exit-btn, body.dark-mode .theme-toggle-btn {
+            background-color: var(--sage-primary);
+            color: var(--text-dark);
+            border-color: var(--text-accent-dark);
+        }
+
+        .menu-btn:hover, .exit-btn:hover, .theme-toggle-btn:hover {
+            background-color: var(--sage-accent);
+            color: #F5F6F5;
+            transform: translateY(-2px);
+        }
+
+        body.dark-mode .menu-btn:hover, body.dark-mode .exit-btn:hover, body.dark-mode .theme-toggle-btn:hover {
+            background-color: var(--text-accent-dark);
+            color: var(--text-dark);
+        }
+
+        .menu-btn i, .exit-btn i, .theme-toggle-btn i {
+            font-size: 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: var(--spacing);
+            flex: 1;
+        }
+
+        .task-list {
+            list-style: none;
+        }
+
+        .task-item {
+            background-color: var(--bg-light);
+            padding: 0.75rem;
+            margin-bottom: 0.75rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--sage-secondary);
+        }
+
+        body.dark-mode .task-item {
+            background-color: var(--bg-dark);
+            border-color: var(--text-accent-dark);
+        }
+
+        .task-title {
+            font-size: var(--font-base);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .task-meta {
+            display: flex;
+            gap: 0.5rem;
+            font-size: var(--font-xs);
+            color: var(--text-accent);
+        }
+
+        body.dark-mode .task-meta {
+            color: var(--text-accent-dark);
+        }
+
+        .task-priority {
+            padding: 0.2rem 0.5rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            font-size: var(--font-xs);
+            color: #F5F6F5;
+        }
+
+        .priority-high { background-color: #E57373; }
+        .priority-medium { background-color: #FFB300; }
+        .priority-low { background-color: #4CAF50; }
+
+        .task-deadline { display: flex; align-items: center; gap: 0.25rem; }
+        .task-deadline.overdue { color: #E57373; }
+        .task-category { display: flex; align-items: center; gap: 0.25rem; }
+
+        .task-details-text {
+            font-size: var(--font-sm);
+            margin-top: 0.5rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .task-details-text {
+            color: var(--text-dark);
+        }
+
+        .task-revisions {
+            margin-top: 0.5rem;
+            font-size: var(--font-xs);
+            color: var(--text-accent);
+            display: none;
+        }
+
+        body.dark-mode .task-revisions {
+            color: var(--text-accent-dark);
+        }
+
+        .task-revisions.visible {
+            display: block;
+        }
+
+        .task-revision-toggle {
+            cursor: pointer;
+            color: var(--sage-accent);
+            font-size: var(--font-xs);
+            font-weight: 500;
+            margin-top: 0.5rem;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .task-revision-toggle {
+            color: var(--sage-primary);
+        }
+
+        .task-revision-list {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .task-revision-item {
+            margin-bottom: 0.25rem;
+        }
+
+        .menu-popup {
+            position: fixed;
+            background-color: var(--bg-light);
+            padding: var(--spacing);
+            border-radius: var(--radius);
+            z-index: 1000;
+            width: 100%;
+            max-width: 320px;
+            border: 1px solid var(--sage-secondary);
+        }
+
+        body.dark-mode .menu-popup {
+            background-color: var(--bg-dark);
+            border-color: var(--text-accent-dark);
+        }
+
+        .menu-popup.visible {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .menu-popup {
+                bottom: 0;
+                left: 0;
+                right: 0;
+                max-width: 100%;
+                border-radius: var(--radius) var(--radius) 0 0;
+                transform: translateY(100%);
+                transition: transform 0.3s ease;
+            }
+
+            .menu-popup.visible {
+                transform: translateY(0);
+            }
+        }
+
+        @media (min-width: 769px) {
+            .menu-popup {
+                top: var(--spacing);
+                right: var(--spacing);
+                max-width: 320px;
+                border-radius: var(--radius);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            }
+
+            .menu-popup.visible {
+                transform: translateX(0);
+            }
+        }
+
+        .menu-popup h2 {
+            font-size: var(--font-base);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .menu-popup h2 {
+            color: var(--text-dark);
+        }
+
+        .menu-group {
+            margin-bottom: 0.75rem;
+        }
+
+        .menu-label {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            display: block;
+            font-size: var(--font-sm);
+            color: var(--text-accent);
+        }
+
+        body.dark-mode .menu-label {
+            color: var(--text-accent-dark);
+        }
+
+        .menu-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .menu-option {
+            padding: 0.5rem;
+            border: 1px solid var(--sage-accent);
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-size: var(--font-sm);
+            font-weight: 500;
+            color: var(--text-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode .menu-option {
+            color: var(--text-dark);
+            border-color: var(--sage-primary);
+        }
+
+        .menu-option.active {
+            background-color: var(--sage-accent);
+            color: #F5F6F5;
+        }
+
+        body.dark-mode .menu-option.active {
+            background-color: var(--sage-primary);
+            color: var(--text-dark);
+        }
+
+        .menu-option:hover {
+            background-color: var(--sage-secondary);
+        }
+
+        body.dark-mode .menu-option:hover {
+            background-color: var(--text-accent-dark);
+        }
+
+        .menu-select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--sage-accent);
+            border-radius: var(--radius);
+            font-size: var(--font-sm);
+            color: var(--text-light);
+            background-color: var(--bg-light);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" stroke="%233D4A47" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        body.dark-mode .menu-select {
+            background-color: var(--bg-dark);
+            border-color: var(--sage-primary);
+            color: var(--text-dark);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" stroke="%23E8ECEB" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>');
+        }
+
+        .menu-select:focus {
+            outline: none;
+            border-color: var(--sage-primary);
+        }
+
+        .task-checkbox {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1px solid var(--sage-accent);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-mode .task-checkbox {
+            border-color: var(--sage-primary);
+        }
+
+        .task-checkbox:checked {
+            background-color: var(--sage-accent);
+            border-color: var(--sage-accent);
+        }
+
+        body.dark-mode .task-checkbox:checked {
+            background-color: var(--sage-primary);
+            border-color: var(--sage-primary);
+        }
+
+        .task-checkbox:checked::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: #F5F6F5;
+            font-size: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        body.dark-mode .task-checkbox:checked::after {
+            color: var(--text-dark);
+        }
+
+        .task-selection-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--sage-secondary);
+        }
+
+        body.dark-mode .task-selection-item {
+            border-bottom: 1px solid var(--text-accent-dark);
+        }
+
+        .task-selection-item:last-child {
+            border-bottom: none;
+        }
+
+        .exit-btn-menu {
+            width: 100%;
+            padding: 0.5rem;
+            background-color: var(--sage-accent);
+            color: #F5F6F5;
+            border: none;
+            border-radius: var(--radius);
+            font-size: var(--font-sm);
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        body.dark-mode .exit-btn-menu {
+            background-color: var(--sage-primary);
+            color: var(--text-dark);
+        }
+
+        .exit-btn-menu:hover {
+            background-color: var(--sage-primary);
+            transform: translateY(-2px);
+        }
+
+        body.dark-mode .exit-btn-menu:hover {
+            background-color: var(--text-accent-dark);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing);
+            background-color: var(--bg-light);
+            border-radius: var(--radius);
+            border: 1px solid var(--sage-secondary);
+            font-size: var(--font-sm);
+            font-weight: 500;
+            color: var(--text-accent);
+        }
+
+        body.dark-mode .empty-state {
+            background-color: var(--bg-dark);
+            border-color: var(--text-accent-dark);
+            color: var(--text-accent-dark);
+        }
+
+        .footer {
+            width: 100%;
+            max-width: 900px;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: var(--font-xs);
+            font-weight: 500;
+            color: var(--text-accent);
+        }
+
+        body.dark-mode .footer {
+            color: var(--text-accent-dark);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 0.75rem;
+            }
+
+            .header {
+                padding: 0.75rem;
+            }
+
+            .container {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="user-info">
+            <div class="user-avatar" id="user-avatar">U</div>
+            <div id="username-display">User</div>
+        </div>
+        <div class="header-controls">
+            <button class="theme-toggle-btn" id="theme-toggle"><i class="fas fa-moon"></i></button>
+            <button class="menu-btn" id="menu-btn"><i class="fas fa-cog"></i></button>
+            <button class="exit-btn" id="exit-focus"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+    </div>
+
+    <div class="container">
+        <ul class="task-list" id="task-list"></ul>
+        <div class="empty-state" id="empty-state" style="display: none;">
+            <p>No tasks found</p>
+            <small>Return to the main app to add tasks!</small>
+        </div>
+    </div>
+
+    <div class="footer">
+        Focus Mode — editing is disabled
+    </div>
+
+    <div class="menu-popup" id="menu-popup">
+        <h2>Focus Mode Options</h2>
+        <div class="menu-group">
+            <label class="menu-label">Show Tasks</label>
+            <div class="menu-options">
+                <div class="menu-option" data-filter="today">Today's Tasks</div>
+                <div class="menu-option" data-filter="recent">Recent Tasks</div>
+                <div class="menu-option" data-filter="selected">Selected Tasks</div>
+            </div>
+        </div>
+        <div class="menu-group" id="task-selection" style="display: none;">
+            <label class="menu-label">Select Tasks to Display</label>
+            <div id="task-selection-list"></div>
+        </div>
+        <div class="menu-group">
+            <label class="menu-label">Task Limit</label>
+            <select class="menu-select" id="task-limit">
+                <option value="5">5 Tasks</option>
+                <option value="10">10 Tasks</option>
+                <option value="20">20 Tasks</option>
+                <option value="0">No Limit</option>
+            </select>
+        </div>
+        <button class="exit-btn-menu" id="exit-focus-menu">Exit Focus Mode</button>
+    </div>
+
+    <script type="module">
+        import { db, doc, getDoc } from '/tools/dailish/js/firebase.js';
+        import { formatDate, isOverdue } from '/tools/dailish/js/utils.js';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const focusSession = localStorage.getItem('focus_session');
+            const now = new Date().getTime();
+            if (!focusSession || now - parseInt(focusSession) > 3 * 60 * 60 * 1000) {
+                window.location.href = '/tools/dailish/app.html';
+                return;
+            }
+
+            const savedTheme = localStorage.getItem('todo_theme') || 'light';
+            document.body.className = savedTheme === 'light' ? '' : `${savedTheme}-mode`;
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            themeToggleBtn.innerHTML = savedTheme === 'light' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+
+            const encodedUsername = sessionStorage.getItem('todo_username') || localStorage.getItem('todo_username_fallback');
+            const username = encodedUsername ? atob(encodedUsername) : 'User';
+            document.getElementById('user-avatar').textContent = username.charAt(0).toUpperCase();
+            document.getElementById('username-display').textContent = username;
+
+            const elements = {
+                taskList: document.getElementById('task-list'),
+                emptyState: document.getElementById('empty-state'),
+                menuPopup: document.getElementById('menu-popup'),
+                menuBtn: document.getElementById('menu-btn'),
+                exitBtn: document.getElementById('exit-focus'),
+                exitBtnMenu: document.getElementById('exit-focus-menu'),
+                taskLimit: document.getElementById('task-limit'),
+                taskSelection: document.getElementById('task-selection'),
+                taskSelectionList: document.getElementById('task-selection-list'),
+                themeToggleBtn: themeToggleBtn
+            };
+
+            let tasks = [];
+            let selectedTaskIds = [];
+            let currentFilter = localStorage.getItem('focus_filter') || 'today';
+            let taskLimit = localStorage.getItem('focus_task_limit') || '10';
+
+            async function loadTasks() {
+                if (!encodedUsername) {
+                    window.location.href = '/tools/dailish/index.html';
+                    return;
+                }
+
+                try {
+                    const userDocRef = doc(db, "users", encodedUsername);
+                    const docSnap = await getDoc(userDocRef);
+                    if (docSnap.exists()) {
+                        tasks = docSnap.data().tasks || [];
+                        localStorage.setItem(`tasks_${encodedUsername}`, JSON.stringify(tasks));
+                    }
+                    if (!navigator.onLine) {
+                        const cachedTasks = localStorage.getItem(`tasks_${encodedUsername}`);
+                        if (cachedTasks) tasks = JSON.parse(cachedTasks);
+                    }
+                    renderTasks();
+                } catch (error) {
+                    console.error("Error loading tasks:", error);
+                    const cachedTasks = localStorage.getItem(`tasks_${encodedUsername}`);
+                    if (cachedTasks) {
+                        tasks = JSON.parse(cachedTasks);
+                        renderTasks();
+                    } else {
+                        elements.emptyState.style.display = 'block';
+                        elements.taskList.innerHTML = '';
+                    }
+                }
+            }
+
+            function renderTasks() {
+                elements.taskList.innerHTML = '';
+                let filteredTasks = [...tasks];
+
+                const today = new Date().toISOString().split('T')[0];
+                if (currentFilter === 'today') {
+                    filteredTasks = filteredTasks.filter(task => task.deadline === today && !task.completed);
+                } else if (currentFilter === 'recent') {
+                    const weekAgo = new Date();
+                    weekAgo.setDate(weekAgo.getDate() - 7);
+                    filteredTasks = filteredTasks.filter(task => new Date(task.createdAt) >= weekAgo && !task.completed);
+                } else if (currentFilter === 'selected') {
+                    filteredTasks = filteredTasks.filter(task => selectedTaskIds.includes(task.id) && !task.completed);
+                }
+
+                if (taskLimit !== '0') {
+                    filteredTasks = filteredTasks.slice(0, parseInt(taskLimit));
+                }
+
+                if (filteredTasks.length === 0) {
+                    elements.emptyState.style.display = 'block';
+                    elements.taskList.innerHTML = '';
+                    return;
+                }
+
+                elements.emptyState.style.display = 'none';
+                filteredTasks.forEach(task => {
+                    const taskItem = document.createElement('li');
+                    taskItem.className = 'task-item';
+                    const iconClass = task.icon || 'fa-tag';
+                    const revisions = task.revisions || [];
+                    const revisionHTML = revisions.length > 0 ? `
+                        <div class="task-revision-toggle">Show Revision History</div>
+                        <div class="task-revisions">
+                            <ul class="task-revision-list">
+                                ${revisions.map(rev => `
+                                    <li class="task-revision-item">
+                                        ${rev.note} (Updated: ${formatDate(rev.timestamp)})
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    ` : '';
+                    taskItem.innerHTML = `
+                        <div class="task-title">${task.title}</div>
+                        <div class="task-meta">
+                            <div class="task-priority priority-${task.priority}">${task.priority.toUpperCase()}</div>
+                            <div class="task-deadline ${isOverdue(task.deadline) && !task.completed ? 'overdue' : ''}">
+                                <i class="fas fa-calendar-alt"></i> ${formatDate(task.deadline)}
+                            </div>
+                            ${task.category ? `<div class="task-category"><i class="fas ${iconClass}"></i> ${task.category}</div>` : ''}
+                        </div>
+                        ${task.brief ? `<div class="task-details-text">${task.brief}</div>` : ''}
+                        ${revisionHTML}
+                    `;
+                    elements.taskList.appendChild(taskItem);
+
+                    if (revisions.length > 0) {
+                        const toggle = taskItem.querySelector('.task-revision-toggle');
+                        const revisionsDiv = taskItem.querySelector('.task-revisions');
+                        toggle.addEventListener('click', () => {
+                            const isVisible = revisionsDiv.classList.contains('visible');
+                            revisionsDiv.classList.toggle('visible');
+                            toggle.textContent = isVisible ? 'Show Revision History' : 'Hide Revision History';
+                        });
+                    }
+                });
+            }
+
+            function updateTaskSelectionList() {
+                elements.taskSelectionList.innerHTML = '';
+                tasks.filter(task => !task.completed).forEach(task => {
+                    const item = document.createElement('div');
+                    item.className = 'task-selection-item';
+                    item.innerHTML = `
+                        <input type="checkbox" class="task-checkbox" data-id="${task.id}" ${selectedTaskIds.includes(task.id) ? 'checked' : ''}>
+                        <span>${task.title}</span>
+                    `;
+                    elements.taskSelectionList.appendChild(item);
+                });
+
+                elements.taskSelectionList.querySelectorAll('.task-checkbox').forEach(checkbox => {
+                    checkbox.addEventListener('change', () => {
+                        const taskId = checkbox.dataset.id;
+                        if (checkbox.checked) {
+                            selectedTaskIds.push(taskId);
+                        } else {
+                            selectedTaskIds = selectedTaskIds.filter(id => id !== taskId);
+                        }
+                        localStorage.setItem('focus_selected_tasks', JSON.stringify(selectedTaskIds));
+                        if (currentFilter === 'selected') renderTasks();
+                    });
+                });
+            }
+
+            function toggleTheme() {
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                document.body.className = isDarkMode ? '' : 'dark-mode';
+                const newTheme = isDarkMode ? 'light' : 'dark';
+                localStorage.setItem('todo_theme', newTheme);
+                themeToggleBtn.innerHTML = newTheme === 'light' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+            }
+
+            elements.taskLimit.value = taskLimit;
+            const savedSelectedTasks = localStorage.getItem('focus_selected_tasks');
+            if (savedSelectedTasks) selectedTaskIds = JSON.parse(savedSelectedTasks);
+            await loadTasks();
+            updateTaskSelectionList();
+            document.querySelector(`.menu-option[data-filter="${currentFilter}"]`)?.classList.add('active');
+
+            elements.menuBtn.addEventListener('click', () => {
+                elements.menuPopup.classList.toggle('visible');
+            });
+
+            elements.themeToggleBtn.addEventListener('click', toggleTheme);
+
+            document.querySelectorAll('.menu-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    document.querySelectorAll('.menu-option').forEach(opt => opt.classList.remove('active'));
+                    option.classList.add('active');
+                    currentFilter = option.dataset.filter;
+                    localStorage.setItem('focus_filter', currentFilter);
+                    elements.taskSelection.style.display = currentFilter === 'selected' ? 'block' : 'none';
+                    renderTasks();
+                });
+            });
+
+            elements.taskLimit.addEventListener('change', () => {
+                taskLimit = elements.taskLimit.value;
+                localStorage.setItem('focus_task_limit', taskLimit);
+                renderTasks();
+            });
+
+            const exitFocus = () => {
+                localStorage.removeItem('focus_session');
+                window.location.href = '/tools/dailish/app.html';
+            };
+
+            elements.exitBtn.addEventListener('click', exitFocus);
+            elements.exitBtnMenu.addEventListener('click', exitFocus);
+
+            document.addEventListener('click', (e) => {
+                if (!elements.menuPopup.contains(e.target) && !elements.menuBtn.contains(e.target)) {
+                    elements.menuPopup.classList.remove('visible');
+                }
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93635ef6ec1b7be1',t:'MTc0NTY0MjEwMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>

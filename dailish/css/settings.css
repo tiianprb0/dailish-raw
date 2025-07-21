@@ -1,0 +1,120 @@
+/* settings.css */
+.settings-panel {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: white;
+    border-left: var(--border);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    transition: right 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.dark-mode .settings-panel {
+    background-color: #2A2A2A;
+}
+
+.settings-panel.visible {
+    right: 0;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.settings-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.close-settings {
+    background-color: var(--secondary);
+    color: var(--dark);
+    border: var(--border);
+    padding: 0.5rem;
+    font-size: var(--font-sm);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all 0.2s ease;
+    border-radius: var(--radius);
+}
+
+.settings-group {
+    margin-bottom: 1.5rem;
+}
+
+.settings-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.theme-options {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.theme-option {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    border: var(--border);
+    box-shadow: var(--shadow);
+}
+
+.theme-light {
+    background-color: #F8F8F8;
+}
+
+.theme-dark {
+    background-color: #1E1E1E;
+}
+
+.theme-pink {
+    background-color: #FFF0F5;
+}
+
+.theme-green {
+    background-color: #F0FFF4;
+}
+
+.theme-blue {
+    background-color: #EBF5FB;
+}
+
+.settings-btn {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-top: 0.5rem;
+    background-color: var(--secondary);
+    color: var(--dark);
+    border-radius: var(--radius);
+    font-size: var(--font-sm);
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.settings-btn:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.dark-mode .settings-btn {
+    background-color: #333333;
+}
+
+.dark-mode .settings-btn:hover {
+    background-color: #FF7B8A;
+}

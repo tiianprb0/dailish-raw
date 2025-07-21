@@ -1,0 +1,298 @@
+.sort-select {
+    padding: 0.5rem 1.5rem 0.5rem 0.75rem;
+    border: var(--border);
+    border-radius: var(--radius);
+    font-size: var(--font-sm);
+    font-weight: 600;
+    color: var(--dark);
+    background-color: white;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2212%22%20height%3D%228%22%20viewBox%3D%220%200%2012%208%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M1%201L6%206L11%201%22%20stroke%3D%22%236B6054%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 12px;
+    max-width: 120px;
+}
+
+.dark-mode .sort-select {
+    color: #D0D0D0;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2212%22%20height%3D%228%22%20viewBox%3D%220%200%2012%208%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M1%201L6%206L11%201%22%20stroke%3D%22%23D0D0D0%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E');
+    background-color: #2A2A2A;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.filter-controls button {
+    flex: 1;
+    background-color: white;
+    border: var(--border);
+    padding: 0.6rem 0.5rem;
+    font-size: var(--font-sm);
+    font-weight: 600;
+    color: var(--dark);
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all 0.2s ease;
+    border-radius: var(--radius);
+    min-width: 100px;
+}
+
+.dark-mode .filter-controls button {
+    background-color: #2A2A2A;
+    color: #D0D0D0;
+}
+
+.filter-controls button.active {
+    background-color: var(--dark);
+    color: white;
+}
+
+.dark-mode .filter-controls button.active {
+    background-color: #D0D0D0;
+    color: #1E1E1E;
+}
+
+.task-list {
+    list-style: none;
+    margin-bottom: 1rem;
+}
+
+.category-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 1.5rem 0 0.75rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.task-item {
+    background-color: white;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.dark-mode .task-item {
+    background-color: #2A2A2A;
+}
+
+.task-item.completed {
+    background-color: var(--light);
+}
+
+.task-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.task-checkbox {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border: var(--border);
+    border-radius: 6px;
+    margin-right: 1rem;
+    position: relative;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
+
+.task-checkbox:checked {
+    background-color: var(--primary);
+}
+
+.task-checkbox:checked::after {
+    content: "\f00c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--dark);
+    font-size: 1rem;
+}
+
+.task-title {
+    flex: 1;
+    font-weight: 600;
+}
+
+.task-title.completed {
+    text-decoration: line-through;
+    color: var(--dark);
+    opacity: 0.7;
+}
+
+.task-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.task-btn {
+    font-size: 1rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--dark);
+    padding: 0;
+}
+
+.task-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding-left: 2rem;
+}
+
+.task-details-content {
+    padding: 1rem 0;
+    border-top: 2px dashed var(--dark);
+    margin-top: 0.75rem;
+}
+
+.task-details-text {
+    font-size: var(--font-sm);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.task-item.expanded .task-details {
+    max-height: 500px;
+}
+
+.task-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: var(--font-sm);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.task-priority {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: var(--font-xs);
+}
+
+.priority-high {
+    background-color: var(--primary);
+    color: white;
+}
+
+.priority-medium {
+    background-color: var(--accent);
+}
+
+.priority-low {
+    background-color: var(--secondary);
+}
+
+.task-deadline {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.task-deadline.overdue {
+    color: #f72585;
+}
+
+.task-category {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.revision-history {
+    margin-top: 0.75rem;
+    padding: 0.5rem;
+    background-color: rgba(245, 245, 245, 0.8);
+    border-radius: var(--radius);
+}
+
+.dark-mode .revision-history {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.revision-item {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dotted #ddd;
+}
+
+.dark-mode .revision-item {
+    border-bottom: 1px dotted #666;
+}
+
+.revision-date {
+    font-size: var(--font-xs);
+    color: #666;
+}
+
+.revision-text {
+    font-size: var(--font-sm);
+    word-break: break-word;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    background-color: white;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--dark);
+    animation: fadeIn 0.3s ease;
+}
+
+.empty-state p {
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.empty-state small {
+    font-size: var(--font-sm);
+    color: var(--dark);
+    opacity: 0.7;
+}
+
+.dark-mode .empty-state {
+    background-color: #2A2A2A;
+    color: #D0D0D0;
+}
+
+.dark-mode .empty-state small {
+    color: #D0D0D0;
+}
+
+@media (max-width: 600px) {
+    .task-details {
+        padding-left: 0;
+    }
+
+    .empty-state {
+        padding: 1.5rem;
+    }
+
+    .empty-state p {
+        font-size: 1rem;
+    }
+}

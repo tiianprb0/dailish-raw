@@ -1,0 +1,87 @@
+.install-prompt {
+    position: fixed;
+    bottom: 90px;
+    right: 2rem;
+    background-color: var(--primary);
+    color: var(--dark);
+    padding: 1rem;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    z-index: 1000;
+    max-width: 300px;
+    display: none;
+    animation: slideIn 0.3s ease;
+}
+
+.install-prompt.visible {
+    display: block;
+}
+
+.install-prompt p {
+    margin-bottom: 0.75rem;
+    font-size: var(--font-sm);
+    font-weight: 600;
+}
+
+.install-prompt .btn {
+    padding: 0.5rem 1rem;
+    width: 100%;
+}
+
+.dark-mode .install-prompt {
+    background-color: #FF7B8A;
+}
+
+.install-confirm {
+    position: fixed;
+    bottom: 90px;
+    right: 2rem;
+    background-color: var(--primary);
+    color: var(--dark);
+    padding: 1rem;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    z-index: 1000;
+    max-width: 300px;
+    display: none;
+    animation: slideIn 0.3s ease;
+}
+
+.install-confirm.visible {
+    display: block;
+}
+
+.install-confirm p {
+    margin-bottom: 0.75rem;
+    font-size: var(--font-sm);
+    font-weight: 600;
+}
+
+.install-confirm .install-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.install-confirm .btn {
+    padding: 0.5rem 1rem;
+    flex: 1;
+}
+
+.dark-mode .install-confirm {
+    background-color: #FF7B8A;
+}
+
+@media (max-width: 600px) {
+    .install-prompt, .install-confirm {
+        bottom: 80px;
+        right: 1rem;
+        max-width: 90%;
+    }
+
+    .install-confirm .install-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

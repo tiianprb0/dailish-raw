@@ -1,0 +1,80 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: var(--border);
+    box-shadow: var(--shadow);
+}
+
+.logout-btn, .hamburger-menu, .search-btn {
+    background-color: var(--secondary);
+    color: var(--dark);
+    border: var(--border);
+    padding: 0.5rem 1rem;
+    font-size: var(--font-sm);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all 0.2s ease;
+    border-radius: var(--radius);
+}
+
+.logout-btn:hover, .hamburger-menu:hover, .search-btn:hover {
+    transform: translate(3px, 3px);
+    box-shadow: 2px 2px 0px rgba(107, 96, 84, 0.4);
+}
+
+@media (max-width: 600px) {
+    .header {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .header-controls {
+        justify-content: flex-end;
+        flex-wrap: nowrap;
+    }
+
+    .logout-btn, .hamburger-menu, .search-btn {
+        padding: 0.5rem;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .logout-btn {
+        font-size: 0;
+    }
+
+    .logout-btn i {
+        font-size: var(--font-sm);
+    }
+}
